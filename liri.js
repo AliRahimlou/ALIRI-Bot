@@ -7,7 +7,7 @@ var spotify = new Spotify(keys.spotify);
 var omdbKey = keys.omdb.api_key;
 var request = require('request');
 var fs = require('fs');
-var axios = require("axios");
+// var axios = require("axios");
 var moment = require('moment')
 
 const a = process.argv[2];
@@ -15,11 +15,7 @@ const b = process.argv[3];
 
 switch (a) {
     case ('concert-this'):
-        if(b){
-            concerts(b);
-         } else{
-            concerts('The Sign');
-         }
+        concerts(b);
    break;
     case ('spotify-this-song'):
         if(b){
@@ -48,11 +44,11 @@ function concerts(artist){
     request(bitURL, function (error, response, body){
         if(!error && response.statusCode == 200){
           var body = JSON.parse(response.body);
-    
+        var date = body[0].datetime
         //   console.log(body);
           console.log("Name of the venue: " + body[0].venue.name);
           console.log(`Venue location: ${body[0].venue.city} ${body[0].venue.region}`);
-          console.log(`Date of the Event: ${body[0].datetime}`);
+          console.log(`Date of the Event:  ${moment(date).format("MM/DD/YYYY")}`);
           
         } else{
           console.log('Error occurred.')
