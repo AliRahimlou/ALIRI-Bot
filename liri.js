@@ -7,7 +7,8 @@ var spotify = new Spotify(keys.spotify);
 var omdbKey = keys.omdb.api_key;
 var request = require('request');
 var fs = require('fs');
-
+var axios = require("axios");
+var moment = require('moment')
 
 const a = process.argv[2];
 const b = process.argv[3];
@@ -40,15 +41,18 @@ switch (a) {
     default:
         console.log('Try again');
 };
+
 function concerts(artist){
     var bitURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bit;
 
-    request(bitURL, function (error, response){
+    request(bitURL, function (error, response, body){
         if(!error && response.statusCode == 200){
-        //   var body = JSON.parse(body);
+          var body = JSON.parse(response.body);
     
-          console.log(response);
-       
+        //   console.log(body);
+          console.log("Name of the venue: " + body[0].venue.name);
+          console.log(`Venue location: ${body[0].venue.city} ${body[0].venue.region}`);
+          console.log(`Date of the Event: ${body[0].datetime}`);
           
         } else{
           console.log('Error occurred.')
