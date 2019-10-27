@@ -5,9 +5,8 @@ var bit = keys.bit.api_id;
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var omdbKey = keys.omdb.api_key;
-var request = require('request');
+// var request = require('request');
 var fs = require('fs');
-// var axios = require("axios");
 var moment = require('moment')
 var axios = require('axios');
 
@@ -102,7 +101,7 @@ function spotifyThisSong(song){
             console.log("Actors: " + body.Actors);
             console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
             console.log("Rotten Tomatoes URL: " + body.tomatoURL);
-            
+
             if(movie === "Mr. Nobody"){
                 console.log("-----------------------");
                 console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
