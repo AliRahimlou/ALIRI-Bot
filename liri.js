@@ -9,9 +9,10 @@ var request = require('request');
 var fs = require('fs');
 // var axios = require("axios");
 var moment = require('moment')
+var axios = require('axios');
 
-const a = process.argv[2];
-const b = process.argv[3];
+var a = process.argv[2];
+var b = process.argv[3];
 
 switch (a) {
     case ('concert-this'):
@@ -31,7 +32,7 @@ switch (a) {
             omdb("Mr. Nobody");
         }
     break;
-    case ('do'):
+    case ('do-what-it-says'):
          doThing();
     break;
     default:
@@ -39,27 +40,32 @@ switch (a) {
 };
 
 function concerts(artist){
-    var bitURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bit;
 
-    request(bitURL, function (error, response, body){
-        if(!error && response.statusCode == 200){
-          var body = JSON.parse(response.body);
-        var date = body[0].datetime
-        //   console.log(body);
-          console.log("Name of the venue: " + body[0].venue.name);
-          console.log(`Venue location: ${body[0].venue.city} ${body[0].venue.region}`);
-          console.log(`Date of the Event:  ${moment(date).format("MM/DD/YYYY")}`);
-          
-        } else{
-          console.log('Error occurred.')
-        }
-        
-      });
-    
+    axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bit).then(
+        function(response) { 
+            var body =(response.data);
+            // console.log(body)
+            var date = body[0].datetime
+            console.log("Name of the venue: " + body[0].venue.name);
+            console.log(`Venue location: ${body[0].venue.city} ${body[0].venue.region}`);
+            console.log(`Date of the Event:  ${moment(date).format("MM/DD/YYYY")}`);
+        })
+        .catch(function(error) {
+          if (error.response) {
+           
+
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+
     }
-
-
-
 
 function spotifyThisSong(song){
     spotify.search({ type: 'track', query: song, limit: 1}, function(error, data){
@@ -83,12 +89,10 @@ function spotifyThisSong(song){
     }
 
     function omdb(movie){
-        var omdbURL = 'http://www.omdbapi.com/?t=' + movie + '&apikey=' + omdbKey + '&plot=short&tomatoes=true';
-      
-        request(omdbURL, function (error, response, body){
-          if(!error && response.statusCode == 200){
-            var body = JSON.parse(body);
-      
+  axios.get('http://www.omdbapi.com/?t=' + movie + '&apikey=' + omdbKey + '&plot=short&tomatoes=true').then(
+        function(response) { 
+            var body =(response.data);
+           
             console.log("Title: " + body.Title);
             console.log("Release Year: " + body.Year);
             console.log("IMdB Rating: " + body.imdbRating);
@@ -99,18 +103,29 @@ function spotifyThisSong(song){
             console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
             console.log("Rotten Tomatoes URL: " + body.tomatoURL);
             
-          } else{
-            console.log('Error occurred.')
-          }
-          if(movie === "Mr. Nobody"){
-            console.log("-----------------------");
-            console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-            console.log("It's on Netflix!");
+            if(movie === "Mr. Nobody"){
+                console.log("-----------------------");
+                console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+                console.log("It's on Netflix!");
+    
+              }
+        })
+        .catch(function(error) {
+          if (error.response) {
+           
 
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
           }
+          console.log(error.config);
         });
-      
-      }
+
+    }
 
       function doThing(){
         fs.readFile('random.txt', "utf8", function(error, data){
