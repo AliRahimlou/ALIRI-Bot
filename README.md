@@ -23,10 +23,10 @@ do-what-it-says
 * Javascript
 
 ## npm packages: 
-* [Moment] (https://www.npmjs.com/package/moment)
-* [spotify](https://www.npmjs.com/package/node-spotify-api) 
-* [axios](https://www.npmjs.com/package/axios)
-* [dotenv](https://www.npmjs.com/package/dotenv) 
+* [Moment] (https://www.npmjs.com/package/moment) A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
+* [spotify](https://www.npmjs.com/package/node-spotify-api) A simple to use API library for the Spotify REST API.
+* [axios](https://www.npmjs.com/package/axios) Promise based HTTP client for the browser and node.js
+* [dotenv](https://www.npmjs.com/package/dotenv) Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env.
 
 ## How to Run ALIRI-Bot
 
