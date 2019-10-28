@@ -65,7 +65,7 @@ do-what-it-says
 	This will output the command placed in random.txt file
 
 	https://alirahimlou.github.io/ALIRI-Bot/
-	<img src="./ALIRI-Bot.gif" width="40" height="40" />
+	<img src="./ALIRI-Bot.gif" width="300" height="300" />
 
 ## Author
 * **ALi Rahimlou** 
