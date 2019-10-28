@@ -64,6 +64,8 @@ do-what-it-says
 
 	This will output the command placed in random.txt file
 
+	https://alirahimlou.github.io/ALIRI-Bot/
+
 ## Author
 * **ALi Rahimlou** 
 
